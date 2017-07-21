@@ -1,29 +1,42 @@
-console.log("START OF JS SCRIPT");
+$(document).ready(function(){
 
-$(document).ready(function () {
+	var quote;
+	var author;
 
-    $("#getQuote").on('click', function () {
+	function getNewQuote(){
+		$.ajax({ //for making api requests
+			url: 'http://api.forismatic.com/api/1.0/',
+			jsonp: 'jsonp',
+			dataType: 'jsonp',
+			data: {
+				method: 'getQuote',
+				lang: 'en',
+				format: 'jsonp'
+			}, // this is equivalent to url: http://api.forismatic.com/api/1.0/?method=getQuote&format=json&lang=en
+			success: function(response){
+				quote = response.quoteText;
+				author = response.quoteAuthor;
+				$('#quote').text(quote);
+				if (author){
+					$('#author').text('- ' + author);
+				} else {
+					$('#author').text('- Unknown');
+				}
+			}
+		});
+	}
+	
+	getNewQuote();
 
-        // var cb = Math.round(new Date().getTime() / 1000);
-        // $.getJSON("http://quotesondesign.com/wp-json/posts?filter[orderby]=rand&filter[posts_per_page]=1&callback=" + cb, function (a) {
-        //     $(".quote-text").html(a[0].content + "<p>— " + a[0].title + "</p>");
-        // });
+	$('.get-quote').on('click', function(event){
+		event.preventDefault();
+		getNewQuote();
+	});
 
-
-        console.log("test");
-
-        $.ajaxSetup({ cache: false });
-
-        // var cb = Math.round(new Date().getTime()/1000);
-
-        $.getJSON("http://quotesondesign.com/wp-json/posts?filter[orderby]=rand&callback=", function (data) {
-            var output = data[0].content;
-
-            console.log(output);
-            $(".message").html(data[0].content + " - " + data[0].title)
-        });
-
-    });
+	$('.share-quote').on('click', function(event){
+		event.preventDefault();
+		window.open('https://twitter.com/intent/tweet?text=' + encodeURIComponent(quote + ' -- ' + author));
+	});
 
 });
 
