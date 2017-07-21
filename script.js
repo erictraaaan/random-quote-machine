@@ -1,27 +1,37 @@
 $(document).ready(function(){
 	getNewQuote();
 
-	// var quote;
-	// var author;
+	var quote;
+	var author;
 
 	function getNewQuote(){
 		var url = "https://cors-anywhere.herokuapp.com/http://api.forismatic.com/api/1.0/?method=getQuote&key=457653&format=json&lang=en"
 
 		$.getJSON(url, function(data){
-			var quote = data.quoteText;
-			var author = data.quoteAuthor;
+			quote = data.quoteText;
+			author = data.quoteAuthor;
 			if (author === ''){
 				author = 'Unknown';
 			}
 
 			$("#quote").html('"' + quote + '"');
 			$("#author").html("- " + author);
-			$('.get-quote').on("click", function(){
-				getNewQuote();
-			});
 
 		});
 
+	}
+
+	$('.get-quote').on("click", function(event){
+		event.preventDefault();
+		getNewQuote();
+	});
+
+	$('.share-quote').on('click', function(event){
+		event.preventDefault();
+		window.open('https://twitter.com/intent/tweet?text=' + encodeURIComponent(quote + ' - ' + author));
+	});
+
+});
 
 		// $.ajax({ //for making api requests
 		// 	url: 'https://cors-anywhere.kerokuapp.com/http://api.forismatic.com/api/1.0/',
@@ -43,19 +53,4 @@ $(document).ready(function(){
 		// 		}
 		// 	}
 		// });
-	}
-
-	// getNewQuote();
-
-	// $('.get-quote').on('click', function(event){
-	// 	event.preventDefault();
-	// 	getNewQuote();
-	// });
-
-	// $('.share-quote').on('click', function(event){
-	// 	event.preventDefault();
-	// 	window.open('https://twitter.com/intent/tweet?text=' + encodeURIComponent(quote + ' -- ' + author));
-	// });
-
-});
 
