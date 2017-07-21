@@ -21,13 +21,11 @@ $(document).ready(function(){
 
 	}
 
-	$('.get-quote').on("click", function(event){
-		event.preventDefault();
+	$('.get-quote').on("click", function(){
 		getNewQuote();
 	});
 
-	$('.share-quote').on('click', function(event){
-		event.preventDefault();
+	$('.share-quote').on('click', function(){
 		window.open("https://twitter.com/intent/tweet?text="+ quote + ' - ' + author);
 	});
 
