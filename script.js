@@ -28,7 +28,7 @@ $(document).ready(function(){
 
 	$('.share-quote').on('click', function(event){
 		event.preventDefault();
-		window.open('https://twitter.com/intent/tweet?text=' + encodeURIComponent(quote + ' - ' + author));
+		window.open("https://twitter.com/intent/tweet?text="+ quote + ' - ' + author);
 	});
 
 });
