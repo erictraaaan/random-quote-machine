@@ -13,6 +13,7 @@ $(document).ready(function(){
 			if (author === ''){
 				author = 'Unknown';
 			}
+            
 
 			$("#quote").html('"' + quote + '"');
 			$("#author").html("- " + author);
