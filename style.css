@@ -2,6 +2,10 @@ body{
 	background-image: url(images/pattern.png);
 	background-repeat: repeat;
 }
+
+.custom-card{
+    margin: 15px;
+}
 /*
 
 body,
